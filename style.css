@@ -1,0 +1,93 @@
+/* Form Container */
+form, .form-section {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+  padding: 0 10px;
+  font-family: "Inter", sans-serif;
+}
+
+/* Section Headings */
+.form-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #111;
+}
+
+/* Section Description */
+.section-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="file"],
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin: 6px 0 15px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #222;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+/* Input Hover + Focus */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+  outline: none;
+}
+
+/* Textarea */
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Checkbox */
+label input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #222;
+}
+
+/* Spacing between sections */
+.form-section {
+  margin-bottom: 35px;
+}
+
+/* Smooth Layout on Mobile */
+@media (max-width: 480px) {
+  .form-section h2 {
+    font-size: 18px;
+  }
+  .submit-btn {
+    font-size: 15px;
+  }
+}

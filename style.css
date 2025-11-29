@@ -91,3 +91,25 @@ label input[type="checkbox"] {
     font-size: 15px;
   }
 }
+
+.copy-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.copy-btn svg {
+  color: #333;
+}
+
+.copy-btn:active svg {
+  color: #007bff;
+}

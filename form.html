@@ -19,7 +19,7 @@
 </head>
 <body class="bg-gray-900">
     <header>
-    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+    <nav class="bg-gray-900 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="#" class="flex items-center">
                 <img src="a135.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
@@ -106,17 +106,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
 
-    <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://atharwa135.in">
-          <input type="hidden" name="_autoresponse" value="Thank you, for your response.">
-          <input type="hidden" name="_template" value="table">
+    <input required type="hidden" name="_captcha" value="false">
+          <input required type="hidden" name="_next" value="https://atharwa135.in">
+          <input required type="hidden" name="_autoresponse" value="Thank you, for your response.">
+          <input required type="hidden" name="_template" value="table">
 
 
 
-    <input type="text"  id="name" name="name" placeholder="Full Name" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
-    <input type="text"  id="Stagename" name="Stagename" placeholder="Artist / Stage Name" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
-    <input type="email" id="email" name="email" placeholder="Email Address" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
-    <input type="text" id="phone" name="phone" placeholder="Phone Number" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
+    <input required type="text"  id="name" name="name" placeholder="Full Name" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
+    <input required type="text"  id="Stagename" name="Stagename" placeholder="Artist / Stage Name" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
+    <input required type="email" id="email" name="email" placeholder="Email Address" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
+    <input required type="text" id="phone" name="phone" placeholder="Phone Number" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
     
   </section>
 
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <h2 class="text-2xl font-semibold text-white">Beat Selection</h2>
     <p class="text-gray-300">Choose the beat you want to purchase. This helps us identify the exact track.</p>
     
-    <input id="beat" name="beat" type="text" placeholder="Enter Beat Code" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
+    <input required id="beat" name="beat" type="text" placeholder="Enter Beat Code" class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
 
     <select id="purchasetype" name="purchasetype"  class="w-full p-3 border border-gray-600 rounded-xl bg-gray-700 text-white focus:ring-2 focus:ring-white">
       <option>Select License Type</option>
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- <div class="bg-gray-700 p-3 rounded-xl text-gray-200 space-y-2 text-sm">
       <p>Enter the Transaction ID or Reference Number or UTR Number</p>
     </div> -->
-    <input id="utr" name="utr"  type="text" placeholder="Enter the Transaction ID or Reference Number or UTR Number" class="w-full p-3 border border-gray-600 rounded-xl cursor-pointer bg-gray-700 text-white">
+    <input required id="utr" name="utr"  type="text" placeholder="Enter the Transaction ID or Reference Number or UTR Number" class="w-full p-3 border border-gray-600 rounded-xl cursor-pointer bg-gray-700 text-white">
   </section>
 
   <!-- Section 5: Agreement -->
@@ -199,13 +199,13 @@ document.addEventListener('DOMContentLoaded', function() {
     </p>
 
     <label class="flex items-center space-x-2">
-      <input id="t&c" name="t&c"  type="checkbox" class="w-4 h-4">
+      <input required id="t&c" name="t&c"  type="checkbox" class="w-4 h-4">
       <span class="text-gray-200">I have read and agree to the Terms & Conditions of Beat Licensing</span>
     </label>
   </section>
 
   <!-- Submit Button -->
-  <input type="submit" value="Submit" class="w-full p-4 bg-white text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all">
+  <input required type="submit" value="Submit" class="w-full p-4 bg-white text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all">
 </input>
 
 </form>
@@ -223,9 +223,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <!-- 
-<section class="form-section"> <h2>Personal Details</h2> <p class="section-desc">Share your basic details so we can deliver your beats and communicate smoothly.</p> <input type="text" placeholder="Full Name"> <input type="text" placeholder="Artist / Stage Name"> <input type="email" placeholder="Email Address"> <input type="text" placeholder="Phone Number"> <input type="text" placeholder="City / Country"> </section> <section class="form-section"> <h2>Beat Selection</h2> <p class="section-desc">Select the beat you want to purchase so we can prepare your files accurately.</p> <select> <option>Select Beat Name / Beat Code</option> <option>Beat 1</option> <option>Beat 2</option> <option>Beat 3</option> </select> <input type="text" placeholder="Paste Beat Link (Optional)"> <input type="file" placeholder="Upload Screenshot (Optional)"> </section> <section class="form-section"> <h2>License Type</h2> <p class="section-desc">Choose the licensing plan that matches your project’s needs.</p> <select> <option>Select License Type</option> <option>Beat Rental</option> <option>Non-Exclusive Lease</option> <option>Exclusive Lease</option> </select> </section> <section class="form-section"> <h2>Project Purpose</h2> <p class="section-desc">Tell us how you plan to use the beat so we can guide your licensing correctly.</p> <select> <option>Select Project Purpose</option> <option>Single Release</option> <option>EP / Album</option> <option>Music Video</option> <option>Demo / Scratch Version</option> <option>Other</option> </select> </section> <section class="form-section"> <h2>Additional Requests</h2> <p class="section-desc">Mention any specific edits, customization, or requirements you have for the beat.</p> <textarea placeholder="Describe your request"></textarea> </section> <section class="form-section"> <h2>Payment Method</h2> <p class="section-desc">Choose your preferred payment method for a smooth purchase process.</p> <select> <option>Select Payment Method</option> <option>UPI</option> <option>Bank Transfer</option> <option>PayPal</option> <option>Other</option> </select> </section> <section class="form-section"> <h2>Agreement</h2> <p class="section-desc">Confirm that you agree to the licensing terms and delivery conditions.</p>
+<section class="form-section"> <h2>Personal Details</h2> <p class="section-desc">Share your basic details so we can deliver your beats and communicate smoothly.</p> <input required type="text" placeholder="Full Name"> <input required type="text" placeholder="Artist / Stage Name"> <input required type="email" placeholder="Email Address"> <input required type="text" placeholder="Phone Number"> <input required type="text" placeholder="City / Country"> </section> <section class="form-section"> <h2>Beat Selection</h2> <p class="section-desc">Select the beat you want to purchase so we can prepare your files accurately.</p> <select> <option>Select Beat Name / Beat Code</option> <option>Beat 1</option> <option>Beat 2</option> <option>Beat 3</option> </select> <input required type="text" placeholder="Paste Beat Link (Optional)"> <input required type="file" placeholder="Upload Screenshot (Optional)"> </section> <section class="form-section"> <h2>License Type</h2> <p class="section-desc">Choose the licensing plan that matches your project’s needs.</p> <select> <option>Select License Type</option> <option>Beat Rental</option> <option>Non-Exclusive Lease</option> <option>Exclusive Lease</option> </select> </section> <section class="form-section"> <h2>Project Purpose</h2> <p class="section-desc">Tell us how you plan to use the beat so we can guide your licensing correctly.</p> <select> <option>Select Project Purpose</option> <option>Single Release</option> <option>EP / Album</option> <option>Music Video</option> <option>Demo / Scratch Version</option> <option>Other</option> </select> </section> <section class="form-section"> <h2>Additional Requests</h2> <p class="section-desc">Mention any specific edits, customization, or requirements you have for the beat.</p> <textarea placeholder="Describe your request"></textarea> </section> <section class="form-section"> <h2>Payment Method</h2> <p class="section-desc">Choose your preferred payment method for a smooth purchase process.</p> <select> <option>Select Payment Method</option> <option>UPI</option> <option>Bank Transfer</option> <option>PayPal</option> <option>Other</option> </select> </section> <section class="form-section"> <h2>Agreement</h2> <p class="section-desc">Confirm that you agree to the licensing terms and delivery conditions.</p>
 
-<label><input type="checkbox"> I agree to the Terms & Conditions</label>
+<label><input required type="checkbox"> I agree to the Terms & Conditions</label>
 
 </section>
 
@@ -319,7 +319,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
 
 
 

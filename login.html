@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <title>Distribution Login | A135MUSIKZ</title>
+</head>
+<body class="min-h-screen bg-gray-950 text-gray-100">
+  <main class="flex min-h-screen items-center justify-center px-4 py-10">
+    <section class="w-full max-w-md rounded-lg border border-gray-700 bg-gray-900 p-6 shadow-2xl shadow-black/30 sm:p-8">
+      <a href="index.html" class="mb-8 flex items-center justify-center text-2xl font-semibold text-white">
+        <img src="a135.png" class="mr-3 h-10" alt="A135MUSIKZ logo">
+        A135MUSIKZ
+      </a>
+
+      <div class="mb-7 text-center">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-green-400">Approved Access</p>
+        <h1 class="text-3xl font-bold tracking-tight text-white">Distribution Login</h1>
+        <p class="mt-3 text-sm leading-6 text-gray-400">Enter the ID and password assigned by A135MUSIKZ to submit a release.</p>
+      </div>
+
+      <form id="login-form" class="space-y-5">
+        <div>
+          <label for="login-id" class="mb-2 block text-sm font-medium text-gray-100">Assigned ID</label>
+          <input type="text" id="login-id" autocomplete="username" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="artist001" required>
+        </div>
+
+        <div>
+          <label for="login-password" class="mb-2 block text-sm font-medium text-gray-100">Password</label>
+          <input type="password" id="login-password" autocomplete="current-password" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Enter password" required>
+        </div>
+
+        <p id="login-error" class="hidden rounded-lg border border-red-800 bg-red-950/70 p-3 text-sm text-red-200">Invalid ID or password.</p>
+
+        <button type="submit" class="inline-flex w-full items-center justify-center rounded-lg bg-green-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-900">Login</button>
+      </form>
+
+      <p class="mt-6 text-center text-xs text-gray-500">Access expires automatically after 8 hours.</p>
+    </section>
+  </main>
+
+  <script>
+    const approvedUsers = [
+      {
+        id: 'artist001',
+        passwordHash: 'e3ad6b29775be5acb7ed04fad9a0198d2fa18efde7d16ff20db4f4284dcf349c'
+      }
+    ];
+
+    const sessionKey = 'a135DistributionAuth';
+    const sessionHours = 8;
+
+    function getNextPage() {
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next') || 'distribution.html';
+      return next.startsWith('http') ? 'distribution.html' : next;
+    }
+
+    async function sha256(value) {
+      const bytes = new TextEncoder().encode(value);
+      const digest = await crypto.subtle.digest('SHA-256', bytes);
+      return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
+    }
+
+    document.getElementById('login-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const userId = document.getElementById('login-id').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorMessage = document.getElementById('login-error');
+      const passwordHash = await sha256(password);
+      const user = approvedUsers.find((item) => item.id === userId && item.passwordHash === passwordHash);
+
+      if (!user) {
+        errorMessage.classList.remove('hidden');
+        return;
+      }
+
+      const expiresAt = Date.now() + sessionHours * 60 * 60 * 1000;
+      sessionStorage.setItem(sessionKey, JSON.stringify({ userId: user.id, expiresAt }));
+      window.location.href = getNextPage();
+    });
+  </script>
+</body>
+</html>

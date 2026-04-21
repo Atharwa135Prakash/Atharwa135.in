@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+  <script>
+    (function () {
+      const sessionKey = 'a135DistributionAuth';
+      const loginPage = 'login.html';
+      const currentPage = window.location.pathname.split('/').pop() || 'distribution.html';
+      let session = null;
+
+      try {
+        session = JSON.parse(sessionStorage.getItem(sessionKey));
+      } catch (error) {
+        session = null;
+      }
+
+      if (!session || !session.userId || !session.expiresAt || Date.now() > Number(session.expiresAt)) {
+        sessionStorage.removeItem(sessionKey);
+        window.location.replace(loginPage + '?next=' + encodeURIComponent(currentPage));
+      }
+    })();
+  </script>
   <title>Release Distribution Submission | A135MUSIKZ</title>
 </head>
 <body class="bg-gray-950 text-gray-100">
@@ -17,6 +36,8 @@
         </a>
 
         <div class="flex items-center lg:order-2">
+          <span id="approved-user-badge" class="mr-2 hidden rounded-lg border border-green-700 bg-green-950 px-3 py-2 text-xs font-medium text-green-200 sm:inline-flex"></span>
+          <button id="logout-button" type="button" class="mr-2 rounded-lg border border-gray-600 px-3 py-2 text-sm font-medium text-gray-200 transition hover:bg-gray-700">Logout</button>
           <a href="https://atharwa135.setmore.com/atharwa" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Enquire</a>
           <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
             <span class="sr-only">Open main menu</span>
@@ -41,52 +62,22 @@
     </nav>
   </header>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <main>
     <section class="bg-gray-950">
       <div class="mx-auto max-w-screen-xl px-4 py-12 lg:px-6 lg:py-16">
         <div class="mx-auto max-w-3xl text-center">
-          <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-green-400">RGN-Distribution</p>
+          <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-green-400">A135MUSIKZ Distribution</p>
           <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Release Submission Form</h1>
           <p class="mt-4 text-base leading-7 text-gray-300">Submit the final master, artwork link, track credits, artist profile details, and release information for audio distribution.</p>
         </div>
 
-
-<form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-10 max-w-5xl">
-<input type="hidden" name="access_key" value="ba8af13d-1520-4f1d-be4a-51856e2e866b">
-
-
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-<input type="hidden" name="subject" value="New audio distribution submission">
-          <input type="hidden" name="_autoresponse" value="Thank you for submitting your release details to A135MUSIKZ. We will review the information and contact you soon.">
-<input type="hidden" name="redirect" value="https://atharwa135.in">
+        <form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-10 max-w-5xl">
+          <input type="hidden" name="access_key" value="ba8af13d-1520-4f1d-be4a-51856e2e866b">
+          <input type="hidden" name="subject" value="New audio distribution submission">
+          <input type="hidden" name="from_name" value="A135MUSIKZ Distribution Form">
+          <input type="hidden" name="redirect" value="https://atharwa135.in">
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+          <input type="hidden" id="approved-login-id" name="approved_login_id" value="">
           <input type="hidden" name="audio_format_required" value="WAV only, 16-24 bit, 44.1 kHz">
           <input type="hidden" name="tracks_count" value="1">
           <input type="hidden" name="mp3s_included_for_distribution" value="No">
@@ -95,463 +86,15 @@
           <div class="space-y-8">
             <section class="rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-lg shadow-black/20 sm:p-7">
               <div class="mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-2xl font-bold text-white">Audio Files</h2>
-                <p class="mt-2 text-sm text-gray-400">WAV only, 16-24 bit, 44.1 kHz. Submit one final master for one track. MP3 files are not required for distribution.</p>
+                <h2 class="text-2xl font-bold text-white">Contact Details</h2>
+                <p class="mt-2 text-sm text-gray-400">Add the email and phone number where A135MUSIKZ can contact you about this release.</p>
               </div>
 
               <div class="grid gap-5 sm:grid-cols-2">
-                <div class="sm:col-span-2">
-                  <label for="audio-link" class="mb-2 block text-sm font-medium text-gray-100">Audio file private download link <span class="text-green-400">*</span></label>
-                  <input type="url" id="audio-link" name="audio_file_private_download_link" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="https://drive.google.com/..." required>
-                </div>
-
-                <label for="audio-files-attached" class="flex rounded-lg border border-gray-700 bg-gray-800 p-4 text-sm text-gray-200">
-                  <input type="checkbox" id="audio-files-attached" name="audio_files_attached" value="Yes" class="mt-1 h-4 w-4 rounded border-gray-600 bg-gray-700 text-green-600 focus:ring-green-500" required>
-                  <span class="ml-3">Audio file is attached through the private download link.</span>
-                </label>
-
-                <label for="wav-master-confirmation" class="flex rounded-lg border border-gray-700 bg-gray-800 p-4 text-sm text-gray-200">
-                  <input type="checkbox" id="wav-master-confirmation" name="final_wav_master_ready" value="Yes" class="mt-1 h-4 w-4 rounded border-gray-600 bg-gray-700 text-green-600 focus:ring-green-500" required>
-                  <span class="ml-3">Final master is one WAV file, 16-24 bit, 44.1 kHz.</span>
-                </label>
-              </div>
-            </section>
-
-            <section class="rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-lg shadow-black/20 sm:p-7">
-              <div class="mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-2xl font-bold text-white">Artwork</h2>
-                <p class="mt-2 text-sm text-gray-400">JPEG or PNG, 3000 x 3000 px, RGB color mode, centered text with safe margins, clear copyright, and safe-for-work.</p>
-              </div>
-
-              <div class="grid gap-5 sm:grid-cols-2">
-                <div class="sm:col-span-2">
-                  <label for="artwork-link" class="mb-2 block text-sm font-medium text-gray-100">Artwork private download link <span class="text-green-400">*</span></label>
-                  <input type="url" id="artwork-link" name="artwork_private_download_link" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="https://drive.google.com/..." required>
-                </div>
-
-                <label for="artwork-file-attached" class="flex rounded-lg border border-gray-700 bg-gray-800 p-4 text-sm text-gray-200">
-                  <input type="checkbox" id="artwork-file-attached" name="artwork_file_attached" value="Yes" class="mt-1 h-4 w-4 rounded border-gray-600 bg-gray-700 text-green-600 focus:ring-green-500" required>
-                  <span class="ml-3">Artwork file is attached through the private download link.</span>
-                </label>
-
-                <label for="artwork-confirmation" class="flex rounded-lg border border-gray-700 bg-gray-800 p-4 text-sm text-gray-200">
-                  <input type="checkbox" id="artwork-confirmation" name="artwork_meets_requirements" value="Yes" class="mt-1 h-4 w-4 rounded border-gray-600 bg-gray-700 text-green-600 focus:ring-green-500" required>
-                  <span class="ml-3">Artwork is JPEG/PNG, 3000 x 3000 px, RGB, centered, copyright clear, and safe-for-work.</span>
-                </label>
-              </div>
-            </section>
-
-            <section class="rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-lg shadow-black/20 sm:p-7">
-              <div class="mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-2xl font-bold text-white">Track Metadata</h2>
-                <p class="mt-2 text-sm text-gray-400">Use the final spellings and credits exactly as they should appear on stores.</p>
-              </div>
-
-              <div class="grid gap-5 sm:grid-cols-2">
-                <div class="sm:col-span-2">
-                  <label for="track-title" class="mb-2 block text-sm font-medium text-gray-100">Track title <span class="text-green-400">*</span></label>
-                  <input type="text" id="track-title" name="track_title" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Enter track title" required>
+                <div>
+                  <label for="submitter-name" class="mb-2 block text-sm font-medium text-gray-100">Your name <span class="text-green-400">*</span></label>
+                  <input type="text" id="submitter-name" name="name" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Full name" required>
                 </div>
 
                 <div>
-                  <label for="isrc" class="mb-2 block text-sm font-medium text-gray-100">ISRC</label>
-                  <input type="text" id="isrc" name="isrc" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Optional">
-                </div>
-
-                <div>
-                  <label for="language" class="mb-2 block text-sm font-medium text-gray-100">Language <span class="text-green-400">*</span></label>
-                  <input type="text" id="language" name="language" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Hindi, English, etc." required>
-                </div>
-
-                <div>
-                  <label for="songwriters" class="mb-2 block text-sm font-medium text-gray-100">Songwriter(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="songwriters" name="songwriters" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="composers" class="mb-2 block text-sm font-medium text-gray-100">Composer(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="composers" name="composers" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="lyricists" class="mb-2 block text-sm font-medium text-gray-100">Lyricist(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="lyricists" name="lyricists" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="performers" class="mb-2 block text-sm font-medium text-gray-100">Performer(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="performers" name="performers" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="producers" class="mb-2 block text-sm font-medium text-gray-100">Producer(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="producers" name="producers" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="publishers" class="mb-2 block text-sm font-medium text-gray-100">Publisher(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="publishers" name="publishers" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="ownership-split" class="mb-2 block text-sm font-medium text-gray-100">Ownership split (%) <span class="text-green-400">*</span></label>
-                  <input type="text" id="ownership-split" name="ownership_split" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Artist 50%, Producer 50%" required>
-                </div>
-
-                <div>
-                  <label for="featured-artists" class="mb-2 block text-sm font-medium text-gray-100">Featured artist(s) <span class="text-green-400">*</span></label>
-                  <input type="text" id="featured-artists" name="featured_artists" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Write None if not applicable" required>
-                </div>
-
-                <div>
-                  <label for="explicit-clean" class="mb-2 block text-sm font-medium text-gray-100">Explicit / Clean <span class="text-green-400">*</span></label>
-                  <select id="explicit-clean" name="explicit_or_clean" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white focus:border-green-500 focus:ring-green-500" required>
-                    <option value="">Select an option</option>
-                    <option value="Clean">Clean</option>
-                    <option value="Explicit">Explicit</option>
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            <section class="rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-lg shadow-black/20 sm:p-7">
-              <div class="mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-2xl font-bold text-white">Artist Profiles</h2>
-                <p class="mt-2 text-sm text-gray-400">Add existing artist profile links or confirm if a new profile needs to be created.</p>
-              </div>
-
-              <div class="grid gap-5 sm:grid-cols-2">
-                <div class="sm:col-span-2">
-                  <label for="primary-artist-name" class="mb-2 block text-sm font-medium text-gray-100">Primary artist name <span class="text-green-400">*</span></label>
-                  <input type="text" id="primary-artist-name" name="primary_artist_name" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="spotify-artist-profile" class="mb-2 block text-sm font-medium text-gray-100">Spotify artist profile link / artist ID <span class="text-green-400">*</span></label>
-                  <input type="text" id="spotify-artist-profile" name="spotify_artist_profile_link_or_id" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Spotify URL or Artist ID" required>
-                </div>
-
-                <div>
-                  <label for="apple-music-artist" class="mb-2 block text-sm font-medium text-gray-100">Apple Music artist link <span class="text-green-400">*</span></label>
-                  <input type="url" id="apple-music-artist" name="apple_music_artist_link" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="https://music.apple.com/..." required>
-                </div>
-
-                <div class="sm:col-span-2">
-                  <label for="new-profile-required" class="mb-2 block text-sm font-medium text-gray-100">New profile creation required <span class="text-green-400">*</span></label>
-                  <select id="new-profile-required" name="new_profile_creation_required" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white focus:border-green-500 focus:ring-green-500" required>
-                    <option value="">Select an option</option>
-                    <option value="No">No</option>
-                    <option value="Yes">Yes</option>
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            <section class="rounded-lg border border-gray-700 bg-gray-900 p-5 shadow-lg shadow-black/20 sm:p-7">
-              <div class="mb-6 border-b border-gray-700 pb-4">
-                <h2 class="text-2xl font-bold text-white">Release Information</h2>
-                <p class="mt-2 text-sm text-gray-400">Complete the release ownership, date, label, and territory details.</p>
-              </div>
-
-              <div class="grid gap-5 sm:grid-cols-2">
-                <div class="sm:col-span-2">
-                  <label for="release-title" class="mb-2 block text-sm font-medium text-gray-100">Release title <span class="text-green-400">*</span></label>
-                  <input type="text" id="release-title" name="release_title" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="release-type" class="mb-2 block text-sm font-medium text-gray-100">Release type <span class="text-green-400">*</span></label>
-                  <select id="release-type" name="release_type" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white focus:border-green-500 focus:ring-green-500" required>
-                    <option value="">Select release type</option>
-                    <option value="Single">Single</option>
-                    <option value="EP">EP</option>
-                    <option value="Album">Album</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label for="label-name" class="mb-2 block text-sm font-medium text-gray-100">Label name <span class="text-green-400">*</span></label>
-                  <input type="text" id="label-name" name="label_name" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="catalogue-number" class="mb-2 block text-sm font-medium text-gray-100">Catalogue number</label>
-                  <input type="text" id="catalogue-number" name="catalogue_number" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" placeholder="Optional">
-                </div>
-
-                <div>
-                  <label for="p-owner" class="mb-2 block text-sm font-medium text-gray-100">&#8471; Owner <span class="text-green-400">*</span></label>
-                  <input type="text" id="p-owner" name="p_owner" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="artwork-owner" class="mb-2 block text-sm font-medium text-gray-100">&copy; Artwork owner <span class="text-green-400">*</span></label>
-                  <input type="text" id="artwork-owner" name="artwork_owner" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white placeholder-gray-500 focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="desired-release-date" class="mb-2 block text-sm font-medium text-gray-100">Desired release date <span class="text-green-400">*</span></label>
-                  <input type="date" id="desired-release-date" name="desired_release_date" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white focus:border-green-500 focus:ring-green-500" required>
-                </div>
-
-                <div>
-                  <label for="territory" class="mb-2 block text-sm font-medium text-gray-100">Territory <span class="text-green-400">*</span></label>
-                  <select id="territory" name="territory" class="block w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-sm text-white focus:border-green-500 focus:ring-green-500" required>
-                    <option value="">Select territory</option>
-                    <option value="Worldwide">Worldwide</option>
-                    <option value="Afghanistan">Afghanistan</option>
-                    <option value="Albania">Albania</option>
-                    <option value="Algeria">Algeria</option>
-                    <option value="Andorra">Andorra</option>
-                    <option value="Angola">Angola</option>
-                    <option value="Antigua and Barbuda">Antigua and Barbuda</option>
-                    <option value="Argentina">Argentina</option>
-                    <option value="Armenia">Armenia</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Austria">Austria</option>
-                    <option value="Azerbaijan">Azerbaijan</option>
-                    <option value="Bahamas">Bahamas</option>
-                    <option value="Bahrain">Bahrain</option>
-                    <option value="Bangladesh">Bangladesh</option>
-                    <option value="Barbados">Barbados</option>
-                    <option value="Belarus">Belarus</option>
-                    <option value="Belgium">Belgium</option>
-                    <option value="Belize">Belize</option>
-                    <option value="Benin">Benin</option>
-                    <option value="Bhutan">Bhutan</option>
-                    <option value="Bolivia">Bolivia</option>
-                    <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
-                    <option value="Botswana">Botswana</option>
-                    <option value="Brazil">Brazil</option>
-                    <option value="Brunei">Brunei</option>
-                    <option value="Bulgaria">Bulgaria</option>
-                    <option value="Burkina Faso">Burkina Faso</option>
-                    <option value="Burundi">Burundi</option>
-                    <option value="Cabo Verde">Cabo Verde</option>
-                    <option value="Cambodia">Cambodia</option>
-                    <option value="Cameroon">Cameroon</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Central African Republic">Central African Republic</option>
-                    <option value="Chad">Chad</option>
-                    <option value="Chile">Chile</option>
-                    <option value="China">China</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Comoros">Comoros</option>
-                    <option value="Congo">Congo</option>
-                    <option value="Congo DR">Congo DR</option>
-                    <option value="Costa Rica">Costa Rica</option>
-                    <option value="Cote d'Ivoire">Cote d'Ivoire</option>
-                    <option value="Croatia">Croatia</option>
-                    <option value="Cuba">Cuba</option>
-                    <option value="Cyprus">Cyprus</option>
-                    <option value="Czechia">Czechia</option>
-                    <option value="Denmark">Denmark</option>
-                    <option value="Djibouti">Djibouti</option>
-                    <option value="Dominica">Dominica</option>
-                    <option value="Dominican Republic">Dominican Republic</option>
-                    <option value="Ecuador">Ecuador</option>
-                    <option value="Egypt">Egypt</option>
-                    <option value="El Salvador">El Salvador</option>
-                    <option value="Equatorial Guinea">Equatorial Guinea</option>
-                    <option value="Eritrea">Eritrea</option>
-                    <option value="Estonia">Estonia</option>
-                    <option value="Eswatini">Eswatini</option>
-                    <option value="Ethiopia">Ethiopia</option>
-                    <option value="Fiji">Fiji</option>
-                    <option value="Finland">Finland</option>
-                    <option value="France">France</option>
-                    <option value="Gabon">Gabon</option>
-                    <option value="Gambia">Gambia</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Ghana">Ghana</option>
-                    <option value="Greece">Greece</option>
-                    <option value="Grenada">Grenada</option>
-                    <option value="Guatemala">Guatemala</option>
-                    <option value="Guinea">Guinea</option>
-                    <option value="Guinea-Bissau">Guinea-Bissau</option>
-                    <option value="Guyana">Guyana</option>
-                    <option value="Haiti">Haiti</option>
-                    <option value="Honduras">Honduras</option>
-                    <option value="Hungary">Hungary</option>
-                    <option value="Iceland">Iceland</option>
-                    <option value="India">India</option>
-                    <option value="Indonesia">Indonesia</option>
-                    <option value="Iran">Iran</option>
-                    <option value="Iraq">Iraq</option>
-                    <option value="Ireland">Ireland</option>
-                    <option value="Israel">Israel</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Jamaica">Jamaica</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Jordan">Jordan</option>
-                    <option value="Kazakhstan">Kazakhstan</option>
-                    <option value="Kenya">Kenya</option>
-                    <option value="Kiribati">Kiribati</option>
-                    <option value="Kuwait">Kuwait</option>
-                    <option value="Kyrgyzstan">Kyrgyzstan</option>
-                    <option value="Laos">Laos</option>
-                    <option value="Latvia">Latvia</option>
-                    <option value="Lebanon">Lebanon</option>
-                    <option value="Lesotho">Lesotho</option>
-                    <option value="Liberia">Liberia</option>
-                    <option value="Libya">Libya</option>
-                    <option value="Liechtenstein">Liechtenstein</option>
-                    <option value="Lithuania">Lithuania</option>
-                    <option value="Luxembourg">Luxembourg</option>
-                    <option value="Madagascar">Madagascar</option>
-                    <option value="Malawi">Malawi</option>
-                    <option value="Malaysia">Malaysia</option>
-                    <option value="Maldives">Maldives</option>
-                    <option value="Mali">Mali</option>
-                    <option value="Malta">Malta</option>
-                    <option value="Marshall Islands">Marshall Islands</option>
-                    <option value="Mauritania">Mauritania</option>
-                    <option value="Mauritius">Mauritius</option>
-                    <option value="Mexico">Mexico</option>
-                    <option value="Micronesia">Micronesia</option>
-                    <option value="Moldova">Moldova</option>
-                    <option value="Monaco">Monaco</option>
-                    <option value="Mongolia">Mongolia</option>
-                    <option value="Montenegro">Montenegro</option>
-                    <option value="Morocco">Morocco</option>
-                    <option value="Mozambique">Mozambique</option>
-                    <option value="Myanmar">Myanmar</option>
-                    <option value="Namibia">Namibia</option>
-                    <option value="Nauru">Nauru</option>
-                    <option value="Nepal">Nepal</option>
-                    <option value="Netherlands">Netherlands</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Nicaragua">Nicaragua</option>
-                    <option value="Niger">Niger</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="North Korea">North Korea</option>
-                    <option value="North Macedonia">North Macedonia</option>
-                    <option value="Norway">Norway</option>
-                    <option value="Oman">Oman</option>
-                    <option value="Pakistan">Pakistan</option>
-                    <option value="Palau">Palau</option>
-                    <option value="Palestine">Palestine</option>
-                    <option value="Panama">Panama</option>
-                    <option value="Papua New Guinea">Papua New Guinea</option>
-                    <option value="Paraguay">Paraguay</option>
-                    <option value="Peru">Peru</option>
-                    <option value="Philippines">Philippines</option>
-                    <option value="Poland">Poland</option>
-                    <option value="Portugal">Portugal</option>
-                    <option value="Qatar">Qatar</option>
-                    <option value="Romania">Romania</option>
-                    <option value="Russia">Russia</option>
-                    <option value="Rwanda">Rwanda</option>
-                    <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
-                    <option value="Saint Lucia">Saint Lucia</option>
-                    <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
-                    <option value="Samoa">Samoa</option>
-                    <option value="San Marino">San Marino</option>
-                    <option value="Sao Tome and Principe">Sao Tome and Principe</option>
-                    <option value="Saudi Arabia">Saudi Arabia</option>
-                    <option value="Senegal">Senegal</option>
-                    <option value="Serbia">Serbia</option>
-                    <option value="Seychelles">Seychelles</option>
-                    <option value="Sierra Leone">Sierra Leone</option>
-                    <option value="Singapore">Singapore</option>
-                    <option value="Slovakia">Slovakia</option>
-                    <option value="Slovenia">Slovenia</option>
-                    <option value="Solomon Islands">Solomon Islands</option>
-                    <option value="Somalia">Somalia</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="South Korea">South Korea</option>
-                    <option value="South Sudan">South Sudan</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Sri Lanka">Sri Lanka</option>
-                    <option value="Sudan">Sudan</option>
-                    <option value="Suriname">Suriname</option>
-                    <option value="Sweden">Sweden</option>
-                    <option value="Switzerland">Switzerland</option>
-                    <option value="Syria">Syria</option>
-                    <option value="Taiwan">Taiwan</option>
-                    <option value="Tajikistan">Tajikistan</option>
-                    <option value="Tanzania">Tanzania</option>
-                    <option value="Thailand">Thailand</option>
-                    <option value="Timor-Leste">Timor-Leste</option>
-                    <option value="Togo">Togo</option>
-                    <option value="Tonga">Tonga</option>
-                    <option value="Trinidad and Tobago">Trinidad and Tobago</option>
-                    <option value="Tunisia">Tunisia</option>
-                    <option value="Turkey">Turkey</option>
-                    <option value="Turkmenistan">Turkmenistan</option>
-                    <option value="Tuvalu">Tuvalu</option>
-                    <option value="Uganda">Uganda</option>
-                    <option value="Ukraine">Ukraine</option>
-                    <option value="United Arab Emirates">United Arab Emirates</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="United States">United States</option>
-                    <option value="Uruguay">Uruguay</option>
-                    <option value="Uzbekistan">Uzbekistan</option>
-                    <option value="Vanuatu">Vanuatu</option>
-                    <option value="Vatican City">Vatican City</option>
-                    <option value="Venezuela">Venezuela</option>
-                    <option value="Vietnam">Vietnam</option>
-                    <option value="Yemen">Yemen</option>
-                    <option value="Zambia">Zambia</option>
-                    <option value="Zimbabwe">Zimbabwe</option>
-                  </select>
-                </div>
-              </div>
-            </section>
-
-            <div class="rounded-lg border border-green-700/40 bg-green-950/30 p-5 sm:flex sm:items-center sm:justify-between sm:p-6">
-              <div>
-                <h2 class="text-xl font-bold text-white">Ready to submit?</h2>
-                <p class="mt-1 text-sm text-green-100">Please review every field before sending the release details.</p>
-              </div>
-              <button type="submit" class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-900 sm:mt-0 sm:w-auto">Submit Release</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800">
-    <div class="mx-auto max-w-screen-xl text-center">
-      <a href="index.html" class="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white">
-        <img class="mr-2 h-8" src="a135.png" alt="A135MUSIKZ logo">
-        A135MUSIKZ
-      </a>
-      <p class="my-6 text-gray-500 dark:text-gray-400">Crafting sound, shaping stories - A135MUSIKZ | Swaranjali Studio | Rap Groove Nation | Cinetra135 | A135Vibhuti | Atharwa135</p>
-      <ul class="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
-        <li><a href="index.html" class="mr-4 hover:underline md:mr-6">About</a></li>
-        <li><a href="index.html#packages" class="mr-4 hover:underline md:mr-6">Packages</a></li>
-        <li><a href="index.html#ourservices" class="mr-4 hover:underline md:mr-6">Services</a></li>
-        <li><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/a135musikz/" class="mr-4 hover:underline md:mr-6">Social Media</a></li>
-        <li><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/fridayfreestyle135/" class="mr-4 hover:underline md:mr-6">Friday Freestyles</a></li>
-        <li><a target="_blank" rel="noopener noreferrer" href="https://atharwa135.setmore.com/atharwa" class="mr-4 hover:underline md:mr-6">Book Appointment</a></li>
-        <li><a target="_blank" rel="noopener noreferrer" href="https://wa.me/918987864075" class="mr-4 hover:underline md:mr-6">Contact</a></li>
-      </ul>
-      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">&copy; 2019-2026 <a href="index.html" class="hover:underline">A135</a>. All Rights Reserved.</span>
-    </div>
-  </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const toggleButton = document.querySelector('[data-collapse-toggle="mobile-menu-2"]');
-      const menu = document.getElementById('mobile-menu-2');
-      const openIcon = document.querySelector('.menu-open-icon');
-      const closeIcon = document.querySelector('.menu-close-icon');
-
-      if (!toggleButton || !menu) {
-        return;
-      }
-
-      toggleButton.addEventListener('click', function () {
-        const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
-        toggleButton.setAttribute('aria-expanded', String(!isExpanded));
-        menu.classList.toggle('hidden');
-        openIcon.classList.toggle('hidden');
-        closeIcon.classList.toggle('hidden');
-      });
-    });
-  </script>
-</body>
-</html>
+                  <label for="submitter-email" class="mb-2 block text-sm font-medium text-gray-100">Your email <span class="text-green-400">*</span></label>

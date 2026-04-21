@@ -71,12 +71,10 @@
           <p class="mt-4 text-base leading-7 text-gray-300">Submit the final master, artwork link, track credits, artist profile details, and release information for audio distribution.</p>
         </div>
 
-        <form action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-10 max-w-5xl">
-          <input type="hidden" name="access_key" value="f7051fa1-0c77-43d6-8201-bf3c6a4a18cd">
+        <form id="distribution-form" action="https://api.web3forms.com/submit" method="POST" class="mx-auto mt-10 max-w-5xl">
+          <input type="hidden" name="access_key" value="ba8af13d-1520-4f1d-be4a-51856e2e866b">
           <input type="hidden" name="subject" value="New audio distribution submission">
           <input type="hidden" name="from_name" value="A135MUSIKZ Distribution Form">
-          <input type="hidden" name="redirect" value="https://atharwa135.in">
-          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
           <input type="hidden" id="approved-login-id" name="approved_login_id" value="">
           <input type="hidden" name="audio_format_required" value="WAV only, 16-24 bit, 44.1 kHz">
           <input type="hidden" name="tracks_count" value="1">
@@ -520,8 +518,9 @@
                 <h2 class="text-xl font-bold text-white">Ready to submit?</h2>
                 <p class="mt-1 text-sm text-green-100">Please review every field before sending the release details.</p>
               </div>
-              <button type="submit" class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-900 sm:mt-0 sm:w-auto">Submit Release</button>
+              <button id="submit-release-button" type="submit" class="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-green-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-900 sm:mt-0 sm:w-auto">Submit Release</button>
             </div>
+            <p id="form-status" class="hidden rounded-lg border p-4 text-sm"></p>
           </div>
         </form>
       </div>
@@ -558,7 +557,9 @@
       const logoutButton = document.getElementById('logout-button');
       const approvedLoginId = document.getElementById('approved-login-id');
       const approvedUserBadge = document.getElementById('approved-user-badge');
-      const distributionForm = document.querySelector('form[action="https://api.web3forms.com/submit"]');
+      const distributionForm = document.getElementById('distribution-form');
+      const submitReleaseButton = document.getElementById('submit-release-button');
+      const formStatus = document.getElementById('form-status');
       let session = null;
 
       try {
@@ -580,8 +581,25 @@
         });
       }
 
+      function showFormStatus(type, message) {
+        if (!formStatus) {
+          return;
+        }
+
+        formStatus.textContent = message;
+        formStatus.className = 'rounded-lg border p-4 text-sm';
+
+        if (type === 'success') {
+          formStatus.classList.add('border-green-700', 'bg-green-950/70', 'text-green-100');
+        } else {
+          formStatus.classList.add('border-red-800', 'bg-red-950/70', 'text-red-100');
+        }
+      }
+
       if (distributionForm) {
-        distributionForm.addEventListener('submit', function (event) {
+        distributionForm.addEventListener('submit', async function (event) {
+          event.preventDefault();
+
           try {
             session = JSON.parse(sessionStorage.getItem(sessionKey));
           } catch (error) {
@@ -596,6 +614,36 @@
           }
 
           approvedLoginId.value = session.userId;
+
+          if (submitReleaseButton) {
+            submitReleaseButton.disabled = true;
+            submitReleaseButton.textContent = 'Submitting...';
+          }
+
+          try {
+            const response = await fetch(distributionForm.action, {
+              method: 'POST',
+              body: new FormData(distributionForm)
+            });
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+              showFormStatus('success', 'Release submitted successfully. A135MUSIKZ has received your details.');
+              distributionForm.reset();
+              approvedLoginId.value = session.userId;
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              return;
+            }
+
+            showFormStatus('error', result.message || 'Submission failed. Please wait a few minutes and try again.');
+          } catch (error) {
+            showFormStatus('error', 'Submission failed. Please check your internet connection and try again.');
+          } finally {
+            if (submitReleaseButton) {
+              submitReleaseButton.disabled = false;
+              submitReleaseButton.textContent = 'Submit Release';
+            }
+          }
         });
       }
 

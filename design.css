@@ -1,0 +1,399 @@
+:root {
+  --ds-ink: #07090d;
+  --ds-ink-2: #0f1623;
+  --ds-card: #111827;
+  --ds-card-2: #151f31;
+  --ds-line: rgba(255, 255, 255, 0.12);
+  --ds-white: #f7f8fb;
+  --ds-muted: #a8b0bf;
+  --ds-blue: #1c64f2;
+  --ds-blue-soft: #3f83f8;
+  --ds-shadow: 0 24px 80px rgba(0, 0, 0, 0.44);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ds-white);
+  background: var(--ds-ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ds-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(28, 100, 242, 0.18), transparent 32%),
+    linear-gradient(180deg, var(--ds-ink-2), var(--ds-ink));
+}
+
+.ds-container {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.ds-login-screen {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.ds-login-card {
+  display: grid;
+  gap: 20px;
+  width: min(100%, 440px);
+  padding: 30px;
+  background: rgba(17, 24, 39, 0.94);
+  border: 1px solid var(--ds-line);
+  border-radius: 8px;
+  box-shadow: var(--ds-shadow);
+}
+
+.ds-login-card h1,
+.ds-final-cta h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.ds-login-card p,
+.ds-final-cta p {
+  margin: 12px 0 0;
+  color: var(--ds-muted);
+  line-height: 1.65;
+}
+
+.ds-app {
+  min-height: 100vh;
+}
+
+.ds-topbar {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 76px;
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 12px 0;
+  background: rgba(7, 9, 13, 0.84);
+  backdrop-filter: blur(16px);
+}
+
+.ds-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-weight: 850;
+  font-size: 1rem;
+}
+
+.ds-brand-mark {
+  display: inline-grid;
+  grid-template-columns: repeat(4, 4px);
+  align-items: end;
+  gap: 3px;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: 7px;
+  background: var(--ds-blue);
+}
+
+.ds-brand-mark span {
+  display: block;
+  width: 4px;
+  background: var(--ds-white);
+  border-radius: 3px;
+}
+
+.ds-brand-mark span:nth-child(1) {
+  height: 8px;
+}
+
+.ds-brand-mark span:nth-child(2) {
+  height: 14px;
+}
+
+.ds-brand-mark span:nth-child(3) {
+  height: 11px;
+}
+
+.ds-brand-mark span:nth-child(4) {
+  height: 17px;
+}
+
+.ds-eyebrow {
+  margin: 0 0 12px;
+  color: var(--ds-blue-soft);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.ds-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 850;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    opacity 160ms ease;
+}
+
+.ds-button:hover {
+  transform: translateY(-1px);
+}
+
+.ds-button svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.2;
+}
+
+.ds-button-primary {
+  color: var(--ds-white);
+  background: var(--ds-blue);
+  box-shadow: 0 14px 34px rgba(28, 100, 242, 0.24);
+}
+
+.ds-button-primary:hover {
+  background: var(--ds-blue-soft);
+  box-shadow: 0 18px 44px rgba(28, 100, 242, 0.3);
+}
+
+.ds-button-secondary {
+  color: var(--ds-white);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ds-line);
+}
+
+.ds-final-cta {
+  padding: 56px 0 96px;
+}
+
+.ds-final-cta-inner {
+  max-width: 1180px;
+}
+
+.ds-release-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.ds-login-card label,
+.ds-release-form label {
+  display: grid;
+  gap: 8px;
+}
+
+.ds-login-card label span,
+.ds-release-form label span {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.ds-login-card input,
+.ds-release-form input,
+.ds-release-form select,
+.ds-release-form textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  color: var(--ds-white);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  outline: none;
+}
+
+.ds-release-form textarea {
+  min-height: 132px;
+  padding-top: 14px;
+  resize: vertical;
+}
+
+.ds-login-card input:focus,
+.ds-release-form input:focus,
+.ds-release-form select:focus,
+.ds-release-form textarea:focus {
+  border-color: var(--ds-blue);
+  box-shadow: 0 0 0 3px rgba(28, 100, 242, 0.18);
+}
+
+.ds-release-form option {
+  color: var(--ds-ink);
+}
+
+.ds-form-wide {
+  grid-column: 1 / -1;
+}
+
+.ds-form-section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-column: 1 / -1;
+  gap: 14px;
+  padding: 24px;
+  background: rgba(17, 24, 39, 0.9);
+  border: 1px solid var(--ds-line);
+  border-radius: 8px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2);
+}
+
+.ds-form-section-head {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 14px;
+  align-items: start;
+}
+
+.ds-form-section-head > span {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  color: var(--ds-white);
+  background: var(--ds-blue);
+  border-radius: 8px;
+  font-weight: 900;
+}
+
+.ds-form-section h2 {
+  margin: 0;
+  font-size: 1.18rem;
+  line-height: 1.2;
+}
+
+.ds-form-section p {
+  margin: 6px 0 0;
+  color: var(--ds-muted);
+  line-height: 1.55;
+}
+
+.ds-spec-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-column: 1 / -1;
+  gap: 10px 16px;
+  padding: 0;
+  margin: 4px 0;
+  list-style: none;
+}
+
+.ds-spec-list li {
+  position: relative;
+  padding-left: 20px;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.45;
+}
+
+.ds-spec-list li::before {
+  position: absolute;
+  left: 0;
+  color: var(--ds-blue-soft);
+  content: "+";
+  font-weight: 900;
+}
+
+.ds-release-form .ds-button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.ds-release-form .ds-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
+.ds-botcheck {
+  display: none;
+}
+
+.ds-form-note {
+  min-height: 24px;
+  margin: 0;
+  color: var(--ds-blue-soft);
+  font-weight: 800;
+}
+
+@media (max-width: 820px) {
+  .ds-topbar {
+    position: static;
+  }
+
+  .ds-release-form,
+  .ds-form-section,
+  .ds-spec-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ds-topbar .ds-button,
+  .ds-release-form .ds-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .ds-container {
+    width: min(100% - 24px, 1180px);
+  }
+
+  .ds-login-card,
+  .ds-form-section {
+    padding: 20px;
+  }
+
+  .ds-final-cta {
+    padding-top: 32px;
+  }
+}

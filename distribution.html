@@ -1,1 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RGN-Distribution</title>
+    <meta
+      name="description"
+      content="RGN-Distribution release submission form for audio files, artwork, metadata, artist profiles, release information, and territories."
+    />
+    <link rel="stylesheet" href="design.css" />
+  </head>
+  <body>
+    <div class="ds-topbar ds-page">
+      <section class="ds-login-screen" data-login-screen>
+        <form class="ds-login-card" data-login-form>
+          <div class="ds-brand">
+            <span class="ds-brand-mark" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </span>
+            <span>RGN-Distribution</span>
+          </div>
+          <div>
+            <p class="ds-eyebrow">Private access</p>
+            <h1>Release submission login</h1>
+            <p>Enter the access details to open the submission form.</p>
+          </div>
+          <label>
+            <span>Login</span>
+            <input type="text" name="username" autocomplete="username" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <button class="ds-button ds-button-primary" type="submit">
+            Enter page
+            <i data-lucide="arrow-right" aria-hidden="true"></i>
+          </button>
+          <p class="ds-form-note" data-login-note aria-live="polite"></p>
+        </form>
+      </section>
 
+      <main class="ds-app" data-app hidden>
+        <header class="ds-topbar">
+          <a class="ds-brand" href="#top" aria-label="RGN-Distribution home">
+            <span class="ds-brand-mark" aria-hidden="true">
+            </span>
+            <span>RGN-Distribution</span>
+          </a>
+          <button class="ds-button ds-button-secondary" type="button" data-logout>
+            Logout
+            <i data-lucide="log-out" aria-hidden="true"></i>
+          </button>
+        </header>
+
+        <section class="ds-final-cta" id="top">
+          <div class="ds-container ds-final-cta-inner">
+            <p class="ds-eyebrow">Release submission</p>
+            <h1>Submit distribution assets.</h1>
+            <p>Paste private download links for audio and artwork, then complete the metadata below. The form sends directly to RGN-Distribution through Web3Forms.</p>
+
+            <form class="ds-release-form" action="https://api.web3forms.com/submit" method="POST" aria-label="Release submission form">
+              <input type="hidden" name="access_key" value="db2cffc4-419a-44e7-8b5b-8a183c5bbf6f" />
+              <input type="hidden" name="subject" value="New RGN-Distribution Release Submission" />
+              <input type="hidden" name="from_name" value="RGN-Distribution Website" />
+              <input type="hidden" name="Audio Format" value="WAV only, 16-24 bit" />
+              <input type="hidden" name="Audio Sample Rate" value="44.1 kHz" />
+              <input type="hidden" name="One WAV Per Track" value="Yes" />
+              <input type="hidden" name="Number of Tracks" value="1" />
+              <input type="hidden" name="MP3s Included for Distribution" value="No" />
+              <input type="hidden" name="Audio Files Attached" value="Yes" />
+              <input type="hidden" name="Artwork Format" value="JPEG / PNG" />
+              <input type="hidden" name="Artwork Dimensions" value="3000 x 3000 px" />
+              <input type="hidden" name="Artwork Color Mode" value="RGB" />
+              <input type="hidden" name="Artwork Text Centered with Safe Margins" value="Yes" />
+              <input type="hidden" name="Artwork Copyright Clear and Safe for Work" value="Yes" />
+              <input type="hidden" name="Artwork File Attached" value="Yes" />
+              <input type="checkbox" name="botcheck" class="ds-botcheck" tabindex="-1" autocomplete="off" />
+
+              <section class="ds-form-section">
+                <div class="ds-form-section-head">
+                  <span>1</span>
+                  <div>
+                    <h2>Audio Files (ATTACHED)</h2>
+                    <p>WAV masters only. Paste a private download link below.</p>
+                  </div>
+                </div>
+                <ul class="ds-spec-list">
+                  <li>Format: WAV only (16-24 bit)</li>
+                  <li>Sample Rate: 44.1 kHz</li>
+                  <li>One WAV per track (final masters): Yes</li>
+                  <li>Number of tracks: 1</li>
+                  <li>MP3s included for distribution: No</li>
+                  <li>Audio files attached: Yes</li>
+                </ul>
+                <label class="ds-form-wide">
+                  <span>Audio file private download link</span>
+                  <input type="url" name="Audio File Private Download Link" placeholder="https://..." required />
+                </label>
+              </section>
+
+              <section class="ds-form-section">
+                <div class="ds-form-section-head">
+                  <span>2</span>
+                  <div>
+                    <h2>Artwork (ATTACHED)</h2>
+                    <p>JPEG or PNG cover artwork. Paste a private download link below.</p>
+                  </div>
+                </div>
+                <ul class="ds-spec-list">
+                  <li>File format: JPEG / PNG</li>
+                  <li>Dimensions: 3000 x 3000 px</li>
+                  <li>Color mode: RGB</li>
+                  <li>Text centered with safe margins: Yes</li>
+                  <li>Copyright clear and safe-for-work: Yes</li>
+                  <li>Artwork file attached: Yes</li>
+                </ul>
+                <label class="ds-form-wide">
+                  <span>Artwork private download link</span>
+                  <input type="url" name="Artwork Private Download Link" placeholder="https://..." required />
+                </label>
+              </section>
+
+              <section class="ds-form-section">
+                <div class="ds-form-section-head">
+                  <span>3</span>
+                  <div>
+                    <h2>Track Metadata</h2>
+                    <p>Complete the metadata for the track being delivered.</p>
+                  </div>
+                </div>
+                <label>
+                  <span>Track Title</span>
+                  <input type="text" name="Track Title" required />
+                </label>
+                <label>
+                  <span>ISRC (optional)</span>
+                  <input type="text" name="ISRC" />
+                </label>
+                <label>
+                  <span>Songwriter(s)</span>
+                  <input type="text" name="Songwriters" required />
+                </label>
+                <label>
+                  <span>Composer(s)</span>
+                  <input type="text" name="Composers" required />
+                </label>
+                <label>
+                  <span>Lyricist(s)</span>
+                  <input type="text" name="Lyricists" required />
+                </label>
+                <label>
+                  <span>Performer(s)</span>
+                  <input type="text" name="Performers" required />
+                </label>
+                <label>
+                  <span>Producer(s)</span>
+                  <input type="text" name="Producers" required />
+                </label>
+                <label>
+                  <span>Publisher(s)</span>
+                  <input type="text" name="Publishers" required />
+                </label>
+                <label>
+                  <span>Ownership Split (%)</span>
+                  <input type="text" name="Ownership Split Percentage" placeholder="Artist 50%, Producer 50%" required />
+                </label>
+                <label>
+                  <span>Featured Artist(s)</span>
+                  <input type="text" name="Featured Artists" placeholder="Write None if not applicable" required />
+                </label>
+                <label>
+                  <span>Explicit / Clean</span>
+                  <select name="Explicit or Clean" required>
+                    <option value="">Select</option>
+                    <option>Clean</option>
+                    <option>Explicit</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Language</span>
+                  <input type="text" name="Language" required />
+                </label>
+              </section>
+
+              <section class="ds-form-section">
+                <div class="ds-form-section-head">
+                  <span>4</span>
+                  <div>
+                    <h2>Artist Profiles</h2>
+                    <p>Add the artist profile destinations for correct mapping.</p>
+                  </div>
+                </div>
+                <label>
+                  <span>Primary Artist Name</span>
+                  <input type="text" name="Primary Artist Name" required />
+                </label>
+                <label>
+                  <span>Spotify Artist Profile Link / Artist ID</span>
+                  <input type="text" name="Spotify Artist Profile Link or Artist ID" required />
+                </label>
+                <label>
+                  <span>Apple Music Artist Link</span>
+                  <input type="url" name="Apple Music Artist Link" placeholder="https://..." required />
+                </label>
+                <label>
+                  <span>New profile creation required</span>
+                  <select name="New Profile Creation Required" required>
+                    <option value="">Select</option>
+                    <option>Yes</option>
+                    <option>No</option>
+                  </select>
+                </label>
+              </section>
+
+              <section class="ds-form-section">
+                <div class="ds-form-section-head">
+                  <span>5</span>
+                  <div>
+                    <h2>Release Information</h2>
+                    <p>Final release-level data for distribution setup.</p>
+                  </div>
+                </div>
+                <label>
+                  <span>Release Title</span>
+                  <input type="text" name="Release Title" required />
+                </label>
+                <label>
+                  <span>Release Type</span>
+                  <select name="Release Type" required>
+                    <option value="">Select</option>
+                    <option>Single</option>
+                    <option>EP</option>
+                    <option>Album</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Label Name</span>
+                  <input type="text" name="Label Name" required />
+                </label>
+                <label>
+                  <span>Catalogue Number (optional)</span>
+                  <input type="text" name="Catalogue Number" />
+                </label>
+                <label>
+                  <span>&#8471; Owner</span>
+                  <input type="text" name="P Owner" required />
+                </label>
+                <label>
+                  <span>&copy; Artwork Owner</span>
+                  <input type="text" name="Artwork Owner" required />
+                </label>
+                <label>
+                  <span>Desired Release Date</span>
+                  <input type="date" name="Desired Release Date" required />
+                </label>
+                <label>
+                  <span>Territory</span>
+                  <select name="Territory" data-territory-select required>
+                    <option value="">Select territory</option>
+                    <option>Worldwide</option>
+                  </select>
+                </label>
+              </section>
+
+              <button class="ds-button ds-button-primary" type="submit">
+                Submit release
+                <i data-lucide="send" aria-hidden="true"></i>
+              </button>
+            </form>
+            <p class="ds-form-note" data-form-note aria-live="polite"></p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
